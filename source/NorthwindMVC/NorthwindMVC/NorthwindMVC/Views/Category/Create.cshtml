@@ -1,0 +1,59 @@
+﻿@model Northwind.Models.CategoryViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>   
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        
+            <div class="form-horizontal">
+            <h4>Category</h4>         
+              @if (!string.IsNullOrEmpty(Model.Message))
+             {
+                <div class="alert alert-danger">@Model.Message </div>
+                <div class="alert alert-danger alert-dismissable">@Html.ValidationSummary(true)</div>
+             }            
+              
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Category.CategoryName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.Category.CategoryName)
+                    <div class="alert alert-danger" >
+                        @Html.ValidationMessageFor(model => Model.Category.CategoryName)
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Category.Description, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.Category.Description)
+                    <div class="alert alert-danger">
+                        @Html.ValidationMessageFor(model => Model.Category.Description)
+                    </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+            </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <script src="~/Scripts/jquery-2.1.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>    
+</body>
+</html>

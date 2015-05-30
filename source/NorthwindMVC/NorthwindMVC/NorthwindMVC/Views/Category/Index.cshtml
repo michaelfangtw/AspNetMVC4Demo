@@ -1,0 +1,66 @@
+﻿@model Northwind.Models.CategoryViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>    
+
+    @Html.Partial("Pager",Model.Pager)
+    <table class="table">
+        <tr>    
+            <th>
+                @Html.ActionLink("CategoryID", "Index", new { sortField = "CategoryID", sortOrder = ViewBag.sortOrder })
+            </th>
+            <th>
+                @Html.ActionLink("CategoryName", "Index", new { sortField = "CategoryName", sortOrder = ViewBag.sortOrder })
+            </th>
+            <th>
+                Description
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model.CategoryList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
+                @Html.ActionLink("Detail", "Detail", new { id = item.CategoryID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID },"onclick=confirm('確定刪除?');")
+            </td>
+        </tr>
+    }
+    
+    </table>
+
+        @if (string.Format("{0}",TempData["message"])!="")
+    {
+        <div class="alert alert-info alert-dismissable">@TempData["message"] </div>
+    }
+
+    <script src="~/Scripts/jquery-2.1.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>    
+
+</body>
+</html>

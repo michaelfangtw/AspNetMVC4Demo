@@ -1,0 +1,73 @@
+﻿@model Northwind.Models.CategoryViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>Category</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+       
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Category.CategoryID, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayTextFor(model =>Model.Category.CategoryID)
+                    @Html.HiddenFor(model => Model.Category.CategoryID)
+                    <div class="alert alert-danger" >
+                        @Html.ValidationMessageFor(model => Model.Category.CategoryID)
+                    </div>
+                </div>
+            </div>
+
+    
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Category.CategoryName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.Category.CategoryName)
+                    <div class="alert alert-danger" >
+                        @Html.ValidationMessageFor(model => Model.Category.CategoryName)
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Category.Description, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.Category.Description)
+                   <div class="alert alert-danger" >
+                        @Html.ValidationMessageFor(model => Model.Category.Description)
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Category.CategoryID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+       <script src="~/Scripts/jquery-2.1.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>    
+</body>
+</html>

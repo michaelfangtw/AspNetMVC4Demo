@@ -1,0 +1,107 @@
+﻿@model Fun.Helper.Pager
+
+Recordcount: @Model.RecordCount
+|
+PageSize: @Model.PageSize
+|
+PageCount: @Model.PageCount
+|
+PageNumber: @Model.PageNumber
+<script>
+    function GoToPage(page) {
+        $("form").submit();
+    }
+</script>
+
+ <hr />
+@using(Html.BeginForm(ViewContext.RouteData.Values["Action"].ToString(), ViewContext.RouteData.Values["Controller"].ToString()))
+{
+    
+         if (Model.PageNumber==1)
+        { 
+            @:第一頁
+        }
+        else
+        { 
+            @Html.ActionLink("第一頁", ViewContext.RouteData.Values["Action"].ToString(),
+            new
+            {
+                PageNumber = 1,
+                SortField = Model.SortField,
+                SortOrder = Model.SortOrder
+            }
+            )
+        }
+         @:|
+
+        if (Model.PageNumber==1)
+        { 
+            @:上一頁
+        }
+        else
+        { 
+            @Html.ActionLink("上一頁", ViewContext.RouteData.Values["Action"].ToString(),
+            new
+            {
+                PageNumber = (Model.PageNumber-1)>0 ? (Model.PageNumber-1) :1,
+                SortField = Model.SortField,
+                SortOrder = Model.SortOrder
+            }
+            )
+        }
+        
+         @:|
+
+        @Html.DropDownList("PageNumber", (IEnumerable<SelectListItem>)Model.PageList, new { onchange = "GoToPage(this.value);" })
+       
+         @Html.Hidden("SortField", Model.SortField)    
+         @Html.Hidden("SortOrder", Model.SortOrder)
+    
+        @*for (int i = 1; i <= Model.PageCount; i++) {
+            string page=(i== Model.PageNumber)?string.Format("[{0}]",i):string.Format("{0}",i);
+            @Html.ActionLink(page, ViewContext.RouteData.Values["Action"].ToString(),
+            new
+            {
+                PageNumber = i ,
+                SortField = Model.SortField,
+                SortOrder = Model.SortOrder
+            }
+            ) 
+            @:&nbsp;    
+        }*@
+    
+      
+        if (Model.PageNumber==Model.PageCount)
+        { 
+            @:下一頁
+        }
+        else
+        { 
+            @Html.ActionLink("下一頁", ViewContext.RouteData.Values["Action"].ToString(),
+                new
+                {
+                    PageNumber = (Model.PageNumber + 1) <=Model.PageCount ? (Model.PageNumber + 1) : Model.PageCount ,
+                    SortField = Model.SortField,
+                    SortOrder = Model.SortOrder
+                }
+                )
+        }
+        @:|
+       
+        if (Model.PageNumber==Model.PageCount)
+        { 
+            @:最後一頁
+        }
+        else
+        { 
+            @Html.ActionLink("最後一頁", ViewContext.RouteData.Values["Action"].ToString(),
+            new
+            {
+                PageNumber =Model.PageCount,
+                SortField = Model.SortField,
+                SortOrder = Model.SortOrder
+            }
+            )
+        }
+} 
+<hr />
